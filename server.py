@@ -1,6 +1,10 @@
-import json
+import http.server
+import socketserver
 
-jsonstring = '{"name": "erik", "age": 38, "married": true}'
-person = json.loads(jsonstring)
-print(person['name'], 'is', person['age'], 'years old')
-print(person)
+PORT = 8000
+
+Handler = http.server.SimpleHTTPRequestHandler
+
+with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    print("serving at port", PORT)
+    httpd.serve_forever()
